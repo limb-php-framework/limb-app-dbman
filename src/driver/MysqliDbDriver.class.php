@@ -240,12 +240,14 @@ class MysqliDbDriver extends MysqlDbDriver
 	  $password = ($password)? '-p' . $password : '';
 	  foreach($tables as $table)
 	  {
+	    $table_name = $table;
+	    $table = '\`' . trim($table) . '\`';
 	    $cmd = "mysql -u$user $password -h$host -e\"DROP TABLE $table\" $database";
 	    system($cmd, $ret);
 	    if(!$ret)
-	      $this->_log("'$table' removed\n");
+	      $this->_log("'$table_name' removed\n");
 	    else
-	      $this->_log("error while removing '$table'\n");
+	      $this->_log("error while removing '$table_name'\n");
 	  }
 	}
 	
